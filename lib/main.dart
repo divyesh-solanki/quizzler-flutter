@@ -33,6 +33,7 @@ class _QuizPageState extends State<QuizPage> {
     'A slug\'s blood is green.',
   ];
 
+  List<bool> answers = [false, true, true];
   int questionNo = 0;
   @override
   Widget build(BuildContext context) {
@@ -70,12 +71,28 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  questionNo++;
-                  scoreKeeper.add(
-                    Icon(Icons.check, color: Colors.green),
+                bool correctAnswer = answers[questionNo];
+                if (correctAnswer == true) {
+                  print('user is correct');
+                  setState(
+                    () {
+                      questionNo++;
+                      scoreKeeper.add(
+                        Icon(Icons.check, color: Colors.green),
+                      );
+                    },
                   );
-                });
+                } else {
+                  print('user got it wrong');
+                  setState(
+                    () {
+                      questionNo++;
+                      scoreKeeper.add(
+                        Icon(Icons.close, color: Colors.red),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),
@@ -93,12 +110,26 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  questionNo++;
-                  scoreKeeper.add(
-                    Icon(Icons.close, color: Colors.red),
+                bool correctAnswer = answers[questionNo];
+                if (correctAnswer == false) {
+                  setState(
+                    () {
+                      questionNo++;
+                      scoreKeeper.add(
+                        Icon(Icons.check, color: Colors.green),
+                      );
+                    },
                   );
-                });
+                } else {
+                  setState(
+                    () {
+                      questionNo++;
+                      scoreKeeper.add(
+                        Icon(Icons.close, color: Colors.red),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),
