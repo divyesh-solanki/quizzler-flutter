@@ -42,4 +42,18 @@ class QuizBrain {
   bool getAnswer(){
     return _questionList[_questionNo].answer;
   }
+
+  bool isFinished(){
+    if(_questionNo >= _questionList.length -1 ){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  void reset(){
+    _questionNo = 0;
+  }
+
 }
