@@ -4,6 +4,7 @@ import 'package:quizzler/quiz_brain.dart';
 void main() => runApp(Quizzler());
 
 QuizBrain quizBrain = QuizBrain();
+
 class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  int questionNo = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +41,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionList[questionNo].questionText,
+                quizBrain.getQuestionText(),
                 //questions[questionNo],
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -66,25 +66,25 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.questionList[questionNo].answer;
+                bool correctAnswer = quizBrain.getAnswer();
                 if (correctAnswer == true) {
                   print('user is correct');
                   setState(
                     () {
-                      questionNo++;
                       scoreKeeper.add(
                         Icon(Icons.check, color: Colors.green),
                       );
+                      quizBrain.nextQuestion();
                     },
                   );
                 } else {
                   print('user got it wrong');
                   setState(
                     () {
-                      questionNo++;
                       scoreKeeper.add(
                         Icon(Icons.close, color: Colors.red),
                       );
+                      quizBrain.nextQuestion();
                     },
                   );
                 }
@@ -105,23 +105,23 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.questionList[questionNo].answer;
+                bool correctAnswer = quizBrain.getAnswer();
                 if (correctAnswer == false) {
                   setState(
                     () {
-                      questionNo++;
                       scoreKeeper.add(
                         Icon(Icons.check, color: Colors.green),
                       );
+                      quizBrain.nextQuestion();
                     },
                   );
                 } else {
                   setState(
                     () {
-                      questionNo++;
                       scoreKeeper.add(
                         Icon(Icons.close, color: Colors.red),
                       );
+                      quizBrain.nextQuestion();
                     },
                   );
                 }
