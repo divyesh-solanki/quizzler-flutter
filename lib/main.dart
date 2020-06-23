@@ -37,7 +37,7 @@ class _QuizPageState extends State<QuizPage> {
       if (quizBrain.isFinished() == true) {
         Alert(
           context: context,
-          type: AlertType.error,
+          type: AlertType.success,
           title: "Quiz Completed",
           desc: "You have answered all questions",
         ).show();
